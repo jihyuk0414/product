@@ -1,0 +1,21 @@
+server:
+  port: 6080
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3305/purchaseandcomment?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: root
+    password: 1234
+
