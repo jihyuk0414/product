@@ -32,7 +32,7 @@ public class ProductService {
             log.info("pmessage {}", productSaveRequest.getPmessage());
             productRepository.save(saveproduct);
 
-            returrn ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch(Exception e) {
             log.info("saveis only ok");
             return ResponseEntity.badRequest().build();
@@ -55,6 +55,8 @@ public class ProductService {
             return ResponseEntity.badRequest().build();
         }
     }
+
+
 
 
 }

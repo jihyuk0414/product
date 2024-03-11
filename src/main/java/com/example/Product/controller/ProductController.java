@@ -48,8 +48,13 @@ public class ProductController {
     }
 
     // 게시글 수정
-//    @PutMapping
-//
+//    @CrossOrigin
+//    @PutMapping("/product/update")
+//    public ResponseEntity changeproduct(@RequestBody ProductSaveRequest productSaveRequest)
+//    {
+//        return
+//    }
+
 
 
 

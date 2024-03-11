@@ -25,4 +25,5 @@ public class GetEmailService {
             .retrieve()
             .bodyToMono(String.class).block();
     }
+
 }
