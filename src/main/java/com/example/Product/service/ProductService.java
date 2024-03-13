@@ -60,7 +60,8 @@ public class ProductService {
     public ResponseEntity updateProduct(ProductUpdateRequest productUpdateRequest)
     {
         try {
-            String basicemail = productRepository.findUserEmailByProductId(productUpdateRequest.getProductid()) ;
+            Product basicproduct = productRepository.findByProductId(productUpdateRequest.getProductid());
+            String basicemail = basicproduct.getUseremail();
             String writeuseremail = getEmailService.getemail(productUpdateRequest.getJwt());
             //이메일 쓴사람이랑 똑같은지 확인
             if (writeuseremail.equalsIgnoreCase(basicemail))

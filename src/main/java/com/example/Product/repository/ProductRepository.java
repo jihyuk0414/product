@@ -15,23 +15,20 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByProductId(Long id);
 
 
-    String findUserEmailByProductId(Long productid);
-
     @Modifying
-    @Query("update Product p set p.product_name = :productname, " +
-            "p.price = :price, p.Pmessage = :pmessage," +
-            "p.create_at = :createat," +
-            "p.category_id = :categoryid," +
-            "p.sold_out = :soldout, p.user_email = :useremail " +
-            "where p.product_id = :productid")
-    void updateProduct(@Param("productId") Long productid,
-                       @Param("productName") String productname,
+    @Query("update Product p set p.productname = :productname, " +
+            "p.price = :price, p.pmessage = :pmessage," +
+            "p.createat = :createat," +
+            "p.categoryid = :categoryid," +
+            "p.soldout = :soldout, p.useremail = :useremail " +
+            "where p.productId = :productid")
+    void updateProduct(@Param("productid") Long productid,
+                       @Param("productname") String productname,
                        @Param("price") int price,
-                       @Param("pMessage") String pmessage,
-                       @Param("createAt") Date createat,
-                       @Param("categoryId") int categoryid,
-                       @Param("soldOut") boolean soldout,
-                       @Param("userEmail") String useremail); //이미지는 변경 필요
-
+                       @Param("pmessage") String pmessage,
+                       @Param("createat") Date createat,
+                       @Param("categoryid") int categoryid,
+                       @Param("soldout") boolean soldout,
+                       @Param("useremail") String useremail);
 
 }

@@ -41,6 +41,5 @@ public class ProductUpdateRequest {
 
     private String jwt;
 
-    //update를 위한 requestbody로써, jwt를 제외하였습니다.
 
 }
