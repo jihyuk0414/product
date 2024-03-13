@@ -1,6 +1,7 @@
 package com.example.Product.service;
 
 import com.example.Product.dto.ProductSaveRequest;
+import com.example.Product.dto.ProductUpdateRequest;
 import com.example.Product.entity.Product;
 import com.example.Product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -54,6 +55,40 @@ public class ProductService {
         {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    public ResponseEntity updateProduct(ProductUpdateRequest productUpdateRequest)
+    {
+        try {
+            String basicemail = productRepository.findUserEmailByProductId(productUpdateRequest.getProductid()) ;
+            String writeuseremail = getEmailService.getemail(productUpdateRequest.getJwt());
+            //이메일 쓴사람이랑 똑같은지 확인
+            if (writeuseremail.equalsIgnoreCase(basicemail))
+            {
+
+                productRepository.updateProduct(productUpdateRequest.getProductid(),
+                        productUpdateRequest.getProductname(),
+                        productUpdateRequest.getPrice(),
+                        productUpdateRequest.getPmessage(),
+                        productUpdateRequest.getCreateat(),
+                        productUpdateRequest.getCategoryid(),
+                        productUpdateRequest.isSoldout(),basicemail);
+
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+
+            }
+            else
+            {
+                //이메일 검증 실패.
+                log.info("email을 쓴사람이 아닙니다.") ;
+                return ResponseEntity.badRequest().build();
+            }
+
+        } catch(Exception e) {
+            log.info("saveis only ok");
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 

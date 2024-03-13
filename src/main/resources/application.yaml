@@ -18,4 +18,7 @@ spring:
     url: jdbc:mysql://localhost:3305/purchaseandcomment?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     username: root
     password: 1234
+  command:
+    - --character-set-server=utf8
+    - --collation-server=utf8_unicode_ci
 

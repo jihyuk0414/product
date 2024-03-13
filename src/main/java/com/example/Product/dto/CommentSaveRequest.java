@@ -16,7 +16,7 @@ public class CommentSaveRequest {
     }
 
 
-    private String comment_detail;
+    private String commentdetail;
 
     private Long productid ;
 

@@ -17,7 +17,7 @@ public class Product {
     private Long productId ;
 
     @Column(name = "product_name")
-    private String product_name;
+    private String productname;
 
     @Column(name = "price")
     private int price ;
@@ -38,26 +38,26 @@ public class Product {
     private String pmessage;
 
     @Column(name = "create_at")
-    private Date create_at;
+    private Date createat;
 
     @Column(name = "category_id")
-    private int category_id;
+    private int categoryid;
 
     @Column(name = "sold_out")
-    private boolean sold_out;
+    private boolean soldout;
 
     @Column(name = "user_email")
-    private String user_email;
+    private String useremail;
 
 
     public Product(String product_name, int price, String pmessage, Date create_at, int category_id, boolean sold_out, String user_email) {
-        this.product_name = product_name;
+        this.productname = product_name;
         this.price = price;
         this.pmessage = pmessage;
-        this.create_at = create_at;
-        this.category_id = category_id;
-        this.sold_out = sold_out;
-        this.user_email = user_email;
+        this.createat = create_at;
+        this.categoryid = category_id;
+        this.soldout = sold_out;
+        this.useremail = user_email;
     }
 
 

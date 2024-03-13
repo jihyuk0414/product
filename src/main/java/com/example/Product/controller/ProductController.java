@@ -3,6 +3,7 @@ package com.example.Product.controller;
 
 import com.example.Product.dto.CommentSaveRequest;
 import com.example.Product.dto.ProductSaveRequest;
+import com.example.Product.dto.ProductUpdateRequest;
 import com.example.Product.entity.Product;
 import com.example.Product.service.CommentService;
 import com.example.Product.service.ProductService;
@@ -27,7 +28,7 @@ public class ProductController {
     }
 
 
-    // 게시글 검색 (상품명) -> 모든 상품명에 따른 객체들 리스트로 return
+     // 게시글 검색 (상품명) -> 모든 상품명에 따른 객체들 리스트로 return
      @CrossOrigin
      @GetMapping("/product/list")
      public List<Product> getallproducts()
@@ -36,7 +37,7 @@ public class ProductController {
      }
 
 
-//    // 게시글 검색 (이메일)
+//  // 게시글 검색 (이메일)
 //
 
     // 게시글 삭제 /(뭐달라할지 고민 필요)
@@ -48,12 +49,13 @@ public class ProductController {
     }
 
     // 게시글 수정
-//    @CrossOrigin
-//    @PutMapping("/product/update")
-//    public ResponseEntity changeproduct(@RequestBody ProductSaveRequest productSaveRequest)
-//    {
-//        return
-//    }
+    @CrossOrigin
+    @PutMapping("/product/update")
+    public ResponseEntity changeproduct(@RequestBody ProductUpdateRequest productUpdateRequest)
+    {
+        return productService.updateProduct(productUpdateRequest) ;
+
+    }
 
 
 

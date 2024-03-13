@@ -32,9 +32,9 @@ public class CommentService {
             Product commentsproduct = productRepository.findByProductId(commentSaveRequest.getProductid());
             //여기서 터지는중
 
-            log.info("product={}",commentsproduct.getProduct_name());
+            log.info("product={}",commentsproduct.getProductname());
 
-            Comment savecomment = new Comment(writeuseremail, commentSaveRequest.getComment_detail(),commentsproduct);
+            Comment savecomment = new Comment(writeuseremail, commentSaveRequest.getCommentdetail(),commentsproduct);
             log.info("savecomment ={}",savecomment);
             commentRepository.save(savecomment);
             return ResponseEntity.ok().build();

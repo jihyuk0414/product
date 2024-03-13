@@ -18,10 +18,10 @@ public class Comment {
     private Long commentId;
 
     @Column(name = "user_email")
-    private String user_email;
+    private String useremail;
 
     @Column(name = "comment_detail")
-    private String comment_detail;
+    private String commentdetail;
 
 
     @ManyToOne
@@ -29,8 +29,8 @@ public class Comment {
     private Product product;
 
     public Comment(String user_email, String comment_detail, Product product) {
-        this.user_email = user_email;
-        this.comment_detail = comment_detail;
+        this.useremail = user_email;
+        this.commentdetail = comment_detail;
         this.product = product;
     }
 }
