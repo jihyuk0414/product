@@ -1,6 +1,7 @@
 package com.example.Product.repository;
 
 import com.example.Product.entity.Product;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByProductId(Long id);
 
 
+    @Transactional
     @Modifying
     @Query("update Product p set p.productname = :productname, " +
             "p.price = :price, p.pmessage = :pmessage," +

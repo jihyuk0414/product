@@ -15,8 +15,6 @@ public class ProductUpdateRequest {
     public ProductUpdateRequest(){
     }
 
-    private Long productid ;
-
     private String productname;
 
     private int price ;

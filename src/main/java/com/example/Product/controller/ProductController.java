@@ -36,24 +36,31 @@ public class ProductController {
          return productService.getallProduct();
      }
 
+     //게시글 1개 검색
+    @CrossOrigin
+    @GetMapping("/product/{productid}")
+    public Product getoneproduct(@PathVariable("productid") Long productid)
+    {
+        return productService.findoneProduct(productid);
+    }
 
 //  // 게시글 검색 (이메일)
 //
 
     // 게시글 삭제 /(뭐달라할지 고민 필요)
     @CrossOrigin
-    @DeleteMapping("/product/delete")
-    public ResponseEntity deleteproduct(@RequestHeader Long productid)
+    @DeleteMapping("/product/delete/{productid}")
+    public ResponseEntity deleteproduct(@PathVariable("productid") Long productid)
     {
         return productService.deleteProduct(productid);
     }
 
     // 게시글 수정
     @CrossOrigin
-    @PutMapping("/product/update")
-    public ResponseEntity changeproduct(@RequestBody ProductUpdateRequest productUpdateRequest)
+    @PutMapping("/product/update/{productid}")
+    public ResponseEntity changeproduct(@PathVariable("productid") Long productid,@RequestBody ProductUpdateRequest productUpdateRequest)
     {
-        return productService.updateProduct(productUpdateRequest) ;
+        return productService.updateProduct(productid,productUpdateRequest) ;
 
     }
 

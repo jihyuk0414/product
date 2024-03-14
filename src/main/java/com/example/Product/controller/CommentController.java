@@ -1,6 +1,7 @@
 package com.example.Product.controller;
 
 import com.example.Product.dto.CommentSaveRequest;
+import com.example.Product.dto.CommentUpdateRequest;
 import com.example.Product.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class CommentController {
     }
 //
 //    // 댓글 수정
-//    @PutMapping
+//    @CrossOrigin
+//    @PutMapping("/comment/update")
+//    public ResponseEntity updatecomment(@RequestBody CommentUpdateRequest commentUpdateRequest)
+//    {
+//        return commentService
+//    }
 }

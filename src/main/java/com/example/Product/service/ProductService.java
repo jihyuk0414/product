@@ -32,7 +32,6 @@ public class ProductService {
                     productSaveRequest.isSoldout(),writeuseremail) ;
             log.info("pmessage {}", productSaveRequest.getPmessage());
             productRepository.save(saveproduct);
-
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch(Exception e) {
             log.info("saveis only ok");
@@ -57,17 +56,23 @@ public class ProductService {
         }
     }
 
-    public ResponseEntity updateProduct(ProductUpdateRequest productUpdateRequest)
+    public Product findoneProduct(Long productid)
+    {
+        return productRepository.findByProductId(productid);
+    }
+
+    public ResponseEntity updateProduct(Long productid, ProductUpdateRequest productUpdateRequest)
     {
         try {
-            Product basicproduct = productRepository.findByProductId(productUpdateRequest.getProductid());
+            Product basicproduct = productRepository.findByProductId(productid);
             String basicemail = basicproduct.getUseremail();
             String writeuseremail = getEmailService.getemail(productUpdateRequest.getJwt());
+            log.info(writeuseremail);
             //이메일 쓴사람이랑 똑같은지 확인
             if (writeuseremail.equalsIgnoreCase(basicemail))
             {
-
-                productRepository.updateProduct(productUpdateRequest.getProductid(),
+                log.info("compareok") ;
+                productRepository.updateProduct(productid,
                         productUpdateRequest.getProductname(),
                         productUpdateRequest.getPrice(),
                         productUpdateRequest.getPmessage(),
@@ -81,12 +86,13 @@ public class ProductService {
             else
             {
                 //이메일 검증 실패.
-                log.info("email을 쓴사람이 아닙니다.") ;
+                log.info("different person with who write") ;
                 return ResponseEntity.badRequest().build();
             }
 
         } catch(Exception e) {
             log.info("saveis only ok");
+
             return ResponseEntity.badRequest().build();
         }
 
