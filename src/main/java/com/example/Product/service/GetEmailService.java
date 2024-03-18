@@ -21,7 +21,7 @@ public class GetEmailService {
     {
         return webclient.get()
             .uri("http://localhost:8080/member/info")
-            .header("Authorization",  jwt)
+            .header("Authorization",  jwt  )
             .retrieve()
             .bodyToMono(String.class).block();
     }

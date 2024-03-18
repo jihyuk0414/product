@@ -24,7 +24,8 @@ public class ProductController {
     @PostMapping("/product/create")
     public ResponseEntity saveproduct(@RequestBody ProductSaveRequest productSaveRequest)
     {
-        return productService.saveProduct(productSaveRequest,productSaveRequest.getJwt()) ;
+        return productService.saveP
+        roduct(productSaveRequest,productSaveRequest.getJwt()) ;
     }
 
 
