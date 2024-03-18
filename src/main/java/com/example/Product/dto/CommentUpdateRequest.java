@@ -8,4 +8,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CommentUpdateRequest {
+
+    public CommentUpdateRequest() {
+    }
+
+    private String commentdetail ;
+
 }

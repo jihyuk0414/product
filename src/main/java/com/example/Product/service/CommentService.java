@@ -1,6 +1,7 @@
 package com.example.Product.service;
 
 import com.example.Product.dto.CommentSaveRequest;
+import com.example.Product.dto.CommentUpdateRequest;
 import com.example.Product.dto.ProductSaveRequest;
 import com.example.Product.entity.Comment;
 import com.example.Product.entity.Product;
@@ -9,8 +10,11 @@ import com.example.Product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +57,31 @@ public class CommentService {
         }catch(Exception e)
         {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    public List<Comment> getallCommentByProductId (Long productid)
+    {
+        return commentRepository.findByProduct_ProductId(productid);
+    }
+
+    public Comment getCommentByCommentId(Long commentid)
+    {
+        return commentRepository.findByCommentId(commentid) ;
+    }
+
+    public ResponseEntity updateComment(Long commentid, CommentUpdateRequest commentUpdateRequest)
+    {
+        String changecommentdetail = commentUpdateRequest.getCommentdetail();
+
+        try {
+            commentRepository.updateComment(commentid,changecommentdetail);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e ){
+            log.info("ohmyexception") ;
+            log.info(e.getMessage()) ;
+            return ResponseEntity.badRequest().build() ;
+
         }
     }
 }

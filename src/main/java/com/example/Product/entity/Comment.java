@@ -3,13 +3,14 @@ package com.example.Product.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Table(name = "comment")
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Comment {
 
     @Id

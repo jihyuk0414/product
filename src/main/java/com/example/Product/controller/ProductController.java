@@ -24,8 +24,7 @@ public class ProductController {
     @PostMapping("/product/create")
     public ResponseEntity saveproduct(@RequestBody ProductSaveRequest productSaveRequest)
     {
-        return productService.saveP
-        roduct(productSaveRequest,productSaveRequest.getJwt()) ;
+        return productService.saveProduct(productSaveRequest,productSaveRequest.getJwt()) ;
     }
 
 
@@ -59,7 +58,8 @@ public class ProductController {
     // 게시글 수정
     @CrossOrigin
     @PutMapping("/product/update/{productid}")
-    public ResponseEntity changeproduct(@PathVariable("productid") Long productid,@RequestBody ProductUpdateRequest productUpdateRequest)
+    public ResponseEntity changeproduct(@PathVariable("productid") Long productid,
+                                        @RequestBody ProductUpdateRequest productUpdateRequest)
     {
         return productService.updateProduct(productid,productUpdateRequest) ;
 
