@@ -16,9 +16,9 @@ public class CommentSaveRequest {
     }
 
 
-    private String commentdetail;
+    private String comment_detail;
 
-    private Long productid ;
+    private Long product_id ;
 
     private String jwt;
 

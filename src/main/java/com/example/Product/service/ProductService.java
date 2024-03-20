@@ -23,42 +23,51 @@ public class ProductService {
 
     private final GetEmailService getEmailService;
 
-    public ResponseEntity saveProduct(ProductSaveRequest productSaveRequest,String jwt) {
+    public ResponseEntity addProduct(ProductSaveRequest productSaveRequest,String jwt) {
         try {
-            String writeuseremail = getEmailService.getemail(jwt);
-            Product saveproduct = new Product(productSaveRequest.getProductname(),
-                    productSaveRequest.getPrice(),productSaveRequest.getPmessage(),
-                    productSaveRequest.getCreateat(),productSaveRequest.getCategoryid(),
-                    productSaveRequest.isSoldout(),writeuseremail) ;
-            log.info("pmessage {}", productSaveRequest.getPmessage());
+            String writeuseremail = getEmailService.getEmail(jwt);
+            Product saveproduct = new Product(productSaveRequest.getProduct_name(),
+                    productSaveRequest.getPrice(),productSaveRequest.getProduct_detail(),
+                    productSaveRequest.getCreate_at(),productSaveRequest.getCategory_id(),
+                    productSaveRequest.isSold_out(),writeuseremail) ;
+            log.info("pmessage {}", productSaveRequest.getProduct_detail());
             productRepository.save(saveproduct);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.ok().build();
         } catch(Exception e) {
-            log.info("saveis only ok");
             return ResponseEntity.badRequest().build();
         }
     }
 
-    public List<Product> getallProduct()
+    public List<Product> findAllProducts()
     {
+        // 무한스크롤로 변경필요
         return productRepository.findAll();
     }
 
     public ResponseEntity deleteProduct(Long productid)
     {
-        Product DeleteProduct = productRepository.findByProductId(productid);
         try{
+            Product DeleteProduct = productRepository.findByProductId(productid);
             productRepository.delete(DeleteProduct);
             return ResponseEntity.ok().build() ;
+        } catch(NullPointerException nullPointerException)
+        {
+            return ResponseEntity.notFound().build();
         } catch (Exception e)
         {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    public Product findoneProduct(Long productid)
+    public ResponseEntity<Product> findProduct(Long productid)
     {
-        return productRepository.findByProductId(productid);
+        try {
+            Product product = productRepository.findByProductId(productid);
+            return ResponseEntity.ok(product) ;
+        }  catch(NullPointerException nullPointerException)
+        {
+            return ResponseEntity.notFound().build() ;
+        }
     }
 
     public ResponseEntity updateProduct(Long productid, ProductUpdateRequest productUpdateRequest)
@@ -66,33 +75,20 @@ public class ProductService {
         try {
             Product basicproduct = productRepository.findByProductId(productid);
             String basicemail = basicproduct.getUseremail();
-            String writeuseremail = getEmailService.getemail(productUpdateRequest.getJwt());
-            log.info(writeuseremail);
-            //이메일 쓴사람이랑 똑같은지 확인
-            if (writeuseremail.equalsIgnoreCase(basicemail))
-            {
-                log.info("compareok") ;
-                productRepository.updateProduct(productid,
-                        productUpdateRequest.getProductname(),
+            productRepository.updateProduct(productid,
+                        productUpdateRequest.getProduct_name(),
                         productUpdateRequest.getPrice(),
-                        productUpdateRequest.getPmessage(),
-                        productUpdateRequest.getCreateat(),
-                        productUpdateRequest.getCategoryid(),
-                        productUpdateRequest.isSoldout(),basicemail);
+                        productUpdateRequest.getProduct_detail(),
+                        productUpdateRequest.getCreate_at(),
+                        productUpdateRequest.getCategory_id(),
+                        productUpdateRequest.isSold_out(),basicemail);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
 
-                return ResponseEntity.status(HttpStatus.CREATED).build();
-
-            }
-            else
-            {
-                //이메일 검증 실패.
-                log.info("different person with who write") ;
-                return ResponseEntity.badRequest().build();
-            }
-
-        } catch(Exception e) {
-            log.info("saveis only ok");
-
+        } catch(NullPointerException nullPointerException)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        catch(Exception e) {
             return ResponseEntity.badRequest().build();
         }
 

@@ -27,19 +27,13 @@ public class CommentService {
 
     private final GetEmailService getEmailService;
 
-    public ResponseEntity saveComment(CommentSaveRequest commentSaveRequest) {
+    //서비스단 메소드명 설정 필요
+
+    public ResponseEntity addComment(CommentSaveRequest commentSaveRequest) {
         try {
-            String writeuseremail = getEmailService.getemail(commentSaveRequest.getJwt());
-            //이메일부 문제 없음
-
-            log.info("productid = {}",commentSaveRequest.getProductid());
-            Product commentsproduct = productRepository.findByProductId(commentSaveRequest.getProductid());
-            //여기서 터지는중
-
-            log.info("product={}",commentsproduct.getProductname());
-
-            Comment savecomment = new Comment(writeuseremail, commentSaveRequest.getCommentdetail(),commentsproduct);
-            log.info("savecomment ={}",savecomment);
+            String writeuseremail = getEmailService.getEmail(commentSaveRequest.getJwt());
+            Product commentsproduct = productRepository.findByProductId(commentSaveRequest.getProduct_id());
+            Comment savecomment = new Comment(writeuseremail, commentSaveRequest.getComment_detail(),commentsproduct);
             commentRepository.save(savecomment);
             return ResponseEntity.ok().build();
         } catch(NullPointerException e) {
@@ -54,25 +48,25 @@ public class CommentService {
             Comment deletecomment = commentRepository.findByCommentId(commentid);
             commentRepository.delete(deletecomment);
             return ResponseEntity.ok().build() ;
-        }catch(Exception e)
+        } catch(Exception e)
         {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    public List<Comment> getallCommentByProductId (Long productid)
+    public ResponseEntity<List<Comment>> findCommentsByProductid (Long productid)
     {
-        return commentRepository.findByProduct_ProductId(productid);
+        return ResponseEntity.ok(commentRepository.findByProduct_ProductId(productid));
     }
 
-    public Comment getCommentByCommentId(Long commentid)
+    public ResponseEntity<Comment> findComment(Long commentid)
     {
-        return commentRepository.findByCommentId(commentid) ;
+        return ResponseEntity.ok(commentRepository.findByCommentId(commentid)) ;
     }
 
     public ResponseEntity updateComment(Long commentid, CommentUpdateRequest commentUpdateRequest)
     {
-        String changecommentdetail = commentUpdateRequest.getCommentdetail();
+        String changecommentdetail = commentUpdateRequest.getComment_detail();
 
         try {
             commentRepository.updateComment(commentid,changecommentdetail);

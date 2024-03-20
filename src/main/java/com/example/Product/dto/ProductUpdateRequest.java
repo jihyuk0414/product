@@ -15,7 +15,7 @@ public class ProductUpdateRequest {
     public ProductUpdateRequest(){
     }
 
-    private String productname;
+    private String product_name;
 
     private int price ;
 
@@ -29,13 +29,14 @@ public class ProductUpdateRequest {
 //
 //    private String image5;
 
-    private String pmessage;
+    private String product_detail;
+    ;
 
-    private Date createat;
+    private Date create_at;
 
-    private int categoryid;
+    private int category_id;
 
-    private boolean soldout;
+    private boolean sold_out;
 
     private String jwt;
 

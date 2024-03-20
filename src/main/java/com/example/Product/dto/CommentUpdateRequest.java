@@ -12,6 +12,6 @@ public class CommentUpdateRequest {
     public CommentUpdateRequest() {
     }
 
-    private String commentdetail ;
+    private String comment_detail ;
 
 }

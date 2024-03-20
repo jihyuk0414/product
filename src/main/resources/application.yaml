@@ -15,8 +15,8 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3305/paymentandcomment?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
-    #url: jdbc:mysql://productandcommentdb:3306/paymentandcomment?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3305/productandcomment?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    #url: jdbc:mysql://productandcommentdb:3306/productandcomment?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     username: root
     password: 1234
   command:

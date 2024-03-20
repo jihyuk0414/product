@@ -16,8 +16,7 @@ public class GetEmailService {
     private final WebClient webclient = WebClient.builder().baseUrl("").build();
 
     //email 요청
-
-    public String getemail(String jwt)
+    public String getEmail(String jwt)
     {
         return webclient.get()
             .uri("http://localhost:8080/member/info")

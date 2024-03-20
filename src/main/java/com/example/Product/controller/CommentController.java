@@ -19,15 +19,15 @@ public class CommentController {
     //    // 댓글 작성
     @CrossOrigin
     @PostMapping("/comment/create")
-    public ResponseEntity savecomment(@RequestBody CommentSaveRequest commentSaveRequest)
+    public ResponseEntity saveComment(@RequestBody CommentSaveRequest commentSaveRequest)
     {
-        return commentService.saveComment(commentSaveRequest) ;
+        return commentService.addComment(commentSaveRequest) ;
     }
-//
+
 //    // 댓글 삭제
     @CrossOrigin
-    @DeleteMapping("/comment/delete")
-    public ResponseEntity deletecomment(@RequestHeader Long commentid)
+    @DeleteMapping("/comment/delete/{commentid}")
+    public ResponseEntity deleteComment(@PathVariable("commentid") Long commentid)
     {
         return commentService.deleteComment(commentid);
     }
@@ -35,23 +35,23 @@ public class CommentController {
     //상품에 달린 댓글들가져오기
     @CrossOrigin
     @GetMapping("/comment/getall/{productid}")
-    public List<Comment> getallcomment(@PathVariable("productid") Long productid)
+    public ResponseEntity<List<Comment>> getAllComment(@PathVariable("productid") Long productid)
     {
-        return commentService.getallCommentByProductId(productid) ;
+        return commentService.findCommentsByProductid(productid) ;
     }
 
     //댓글 1개 가져오기
     @CrossOrigin
     @GetMapping("/comment/getone/{commentid}")
-    public Comment getcomment(@PathVariable("commentid") Long commentid)
+    public ResponseEntity<Comment> getComment(@PathVariable("commentid") Long commentid)
     {
-        return commentService.getCommentByCommentId(commentid) ;
+        return commentService.findComment(commentid) ;
     }
 //
     // 댓글 수정
     @CrossOrigin
     @PutMapping("/comment/update/{commentid}")
-    public ResponseEntity updatecomment(@PathVariable("commentid") Long commentid,
+    public ResponseEntity updateComment(@PathVariable("commentid") Long commentid,
                                         @RequestBody CommentUpdateRequest commentUpdateRequest)
     {
         return commentService.updateComment(commentid, commentUpdateRequest) ;
