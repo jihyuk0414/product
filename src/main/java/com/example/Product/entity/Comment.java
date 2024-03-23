@@ -1,5 +1,6 @@
 package com.example.Product.entity;
 
+import com.example.Product.dto.CommentResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,5 +34,15 @@ public class Comment {
         this.useremail = user_email;
         this.commentdetail = comment_detail;
         this.product = product;
+    }
+
+    public CommentResponse toCommentResponseDto()
+    {
+        return CommentResponse.builder()
+                .comment_id(commentId)
+                .user_email(useremail)
+                .comment_detail(commentdetail)
+                .product_id(product.getProductId())
+                .build() ;
     }
 }

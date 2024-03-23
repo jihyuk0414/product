@@ -1,5 +1,6 @@
 package com.example.Product.entity;
 
+import com.example.Product.dto.ProductResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -58,6 +59,19 @@ public class Product {
         this.categoryid = category_id;
         this.soldout = sold_out;
         this.useremail = user_email;
+    }
+
+    public ProductResponse toProductResponseDto()
+    {
+        return ProductResponse.builder()
+                .product_id(productId)
+                .product_name(productname)
+                .price(price)
+                .product_detail(pmessage)
+                .create_at(createat)
+                .category_id(categoryid)
+                .sold_out(soldout)
+                .user_email(useremail).build();
     }
 
 

@@ -19,7 +19,7 @@ public class GetEmailService {
     public String getEmail(String jwt)
     {
         return webclient.get()
-            .uri("http://localhost:8080/member/info")
+            .uri("http://localhost:8080/member/info")// member4와 같이 변경 필요
             .header("Authorization",  jwt  )
             .retrieve()
             .bodyToMono(String.class).block();

@@ -1,5 +1,6 @@
 package com.example.Product.service;
 
+import com.example.Product.dto.ProductResponse;
 import com.example.Product.dto.ProductSaveRequest;
 import com.example.Product.dto.ProductUpdateRequest;
 import com.example.Product.entity.Product;
@@ -59,14 +60,16 @@ public class ProductService {
         }
     }
 
-    public ResponseEntity<Product> findProduct(Long productid)
+    public ResponseEntity<ProductResponse> findProduct(Long productid)
     {
         try {
             Product product = productRepository.findByProductId(productid);
-            return ResponseEntity.ok(product) ;
-        }  catch(NullPointerException nullPointerException)
+            ProductResponse productResponse = product.toProductResponseDto() ;
+            log.info("{}", productResponse.getProduct_id()) ;
+            return ResponseEntity.ok(productResponse) ;
+        }  catch(Exception e)
         {
-            return ResponseEntity.notFound().build() ;
+            return ResponseEntity.badRequest().build() ;
         }
     }
 
@@ -82,7 +85,7 @@ public class ProductService {
                         productUpdateRequest.getCreate_at(),
                         productUpdateRequest.getCategory_id(),
                         productUpdateRequest.isSold_out(),basicemail);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.ok().build();
 
         } catch(NullPointerException nullPointerException)
         {

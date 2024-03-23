@@ -1,5 +1,6 @@
 package com.example.Product.service;
 
+import com.example.Product.dto.CommentResponse;
 import com.example.Product.dto.CommentSaveRequest;
 import com.example.Product.dto.CommentUpdateRequest;
 import com.example.Product.dto.ProductSaveRequest;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,14 +56,25 @@ public class CommentService {
         }
     }
 
-    public ResponseEntity<List<Comment>> findCommentsByProductid (Long productid)
+    public ResponseEntity<List<CommentResponse>> findCommentsByProductid (Long productid)
     {
-        return ResponseEntity.ok(commentRepository.findByProduct_ProductId(productid));
+        List<CommentResponse> commentResponseList = commentRepository.findByProduct_ProductId(productid)
+                .stream()
+                .map(comment -> CommentResponse.builder()
+                        .comment_id(comment.getCommentId())
+                        .user_email(comment.getUseremail())
+                        .comment_detail(comment.getCommentdetail())
+                        .product_id(comment.getProduct().getProductId())
+                        .build()) // 빌더를 이용하여 CommentResponse 객체 생성
+                .collect(Collectors.toList()); // 스트림을 리스트로 변환
+        return ResponseEntity.ok(commentResponseList);
     }
 
-    public ResponseEntity<Comment> findComment(Long commentid)
+    public ResponseEntity<CommentResponse> findComment(Long commentid)
     {
-        return ResponseEntity.ok(commentRepository.findByCommentId(commentid)) ;
+        Comment comment =commentRepository.findByCommentId(commentid) ;
+        CommentResponse commentResponse = comment.toCommentResponseDto() ;
+        return ResponseEntity.ok(commentResponse) ;
     }
 
     public ResponseEntity updateComment(Long commentid, CommentUpdateRequest commentUpdateRequest)
@@ -70,7 +83,7 @@ public class CommentService {
 
         try {
             commentRepository.updateComment(commentid,changecommentdetail);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.ok().build();
         } catch (Exception e ){
             log.info("ohmyexception") ;
             log.info(e.getMessage()) ;
