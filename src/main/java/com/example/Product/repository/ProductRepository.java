@@ -2,6 +2,8 @@ package com.example.Product.repository;
 
 import com.example.Product.entity.Product;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,5 +34,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                        @Param("categoryid") int categoryid,
                        @Param("soldout") boolean soldout,
                        @Param("useremail") String useremail);
+
+    Page<Product> findAll(Pageable pageable) ;
 
 }

@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,17 +40,17 @@ public class ProductController {
     }
 
 
-     // 게시글 검색 (상품명) -> 모든 상품명에 따른 객체들 리스트로 return
-     // 무한스크롤로 변경
-//     @CrossOrigin
-//     @GetMapping("/product")
-//     public List<Product> getAllProducts()
-//     {
-//         return productService.findAllProducts();
-//     }
+     // 페이징 형태로 변경
+    //entitty에 담아서 보내야 할까요 . .
 
+    @Operation(summary = "상품 게시글 페이지 조회")
+    @GetMapping("/product/page/{page}")
+    public Page<ProductResponse> getProductPage(@PathVariable("page") int page)
+    {
+        return productService.findProductPage(page) ;
+    }
      //게시글 1개 검색
-     @Operation(summary = "상품 게시글 조회")
+     @Operation(summary = "상품 게시글 상세 조회")
      @ApiResponses(value = {
              @ApiResponse(responseCode = "200", description = "상품 게시글 조회 성공"),
              @ApiResponse(responseCode = "404", description = "NULL 관련 문제 발생"),
